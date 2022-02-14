@@ -22,6 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "react-scripts build && firebase deploy",
     "test": "react-scripts test",
     "generate": "rimraf ./src/icons/ && svgr ./svgs/",
     "eject": "react-scripts eject"
