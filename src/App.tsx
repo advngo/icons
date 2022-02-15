@@ -1,7 +1,11 @@
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import './App.css';
-import * as icons from './icons';
+import * as Solid from './icons/icons/solid';
+import * as Outline from './icons/icons/outline';
+import * as Logos from './icons/logos';
+import * as Emojis from './icons/emojis';
+import * as Flags from './icons/icons/solid/flags';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from './favicon.png'
 import Instructions from './components/Instructions';
@@ -45,6 +49,13 @@ const GroupIcons: React.FC<{ icons: any[] }> = ({ icons }) => {
 }
 
 function App() {
+  const icons = {
+    Solid,
+    Outline,
+    Logos,
+    Emojis,
+    Flags
+  }
   return (
     <div className="App m-auto md:w-8/12 p-10">
       <ToastContainer />
@@ -56,7 +67,7 @@ function App() {
         <Instructions />
       </div>
       <div className="flex flex-col h-full py-10">
-        {Object.values(icons).map((group, key) => {
+        {Object.values({ icons }).map((group, key) => {
           return <div>
             <div className="text-left">
               <h3>{Object.keys(icons)[key]}</h3>
