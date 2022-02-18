@@ -1,14 +1,14 @@
 import React from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import './App.css';
 import * as Solid from './icons/icons/solid';
 import * as Outline from './icons/icons/outline';
 import * as Logos from './icons/logos';
 import * as Emojis from './icons/emojis';
 import * as Flags from './icons/icons/solid/flags';
-import 'react-toastify/dist/ReactToastify.css';
-import logo from './favicon.png'
+import { toast, ToastContainer } from 'react-toastify';
 import Instructions from './components/Instructions';
+import logo from './favicon.png'
+import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
 
 const notify = (text: string, Icon: any) => toast(
   <span><Icon /> {text}</span>,
@@ -27,7 +27,7 @@ const GroupIcons: React.FC<{ icons: any[] }> = ({ icons }) => {
 
   return <div className="grid grid-cols-6 md:grid-cols-6 gap-4 w-full items-center justify-between">
     {icons.map((Icon, key) => {
-      const name = Icon.name.replace('Svg', '')
+      const name = String(Icon.name).indexOf('Svg') === 0 ? Icon.name.replace('Svg', '') : Icon.name;
       const ref = React.createRef<any>()
       return <div
         key={key}
@@ -35,7 +35,7 @@ const GroupIcons: React.FC<{ icons: any[] }> = ({ icons }) => {
         onMouseEnter={() => ref.current.style.visibility = 'visible'}
         onMouseLeave={() => ref.current.style.visibility = 'hidden'}
         onClick={(e) => {
-          navigator.clipboard.writeText(Icon.name);
+          navigator.clipboard.writeText(`<${Icon.name} />`);
           notify('Copied!', Icon);
         }}
       >
@@ -67,8 +67,8 @@ function App() {
         <Instructions />
       </div>
       <div className="flex flex-col h-full py-10">
-        {Object.values({ icons }).map((group, key) => {
-          return <div>
+        {Object.values(icons).map((group, key) => {
+          return <div key={key}>
             <div className="text-left">
               <h3>{Object.keys(icons)[key]}</h3>
             </div>
