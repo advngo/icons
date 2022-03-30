@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import './App.css';
-import * as icons from './icons';
+import { groupedIcons } from './icons';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from './favicon.png'
 import Instructions from './components/Instructions';
@@ -30,7 +30,7 @@ const GroupIcons: React.FC<{ icons: any[] }> = ({ icons }) => {
         className="w-full flex flex-col justify-center items-center hover:scale-150"
         onMouseEnter={() => ref.current.style.visibility = 'visible'}
         onMouseLeave={() => ref.current.style.visibility = 'hidden'}
-        onClick={(e) => {
+        onClick={() => {
           navigator.clipboard.writeText(Icon.name);
           notify('Copied!', Icon);
         }}
@@ -56,10 +56,10 @@ function App() {
         <Instructions />
       </div>
       <div className="flex flex-col h-full py-10">
-        {Object.values(icons).map((group, key) => {
+        {Object.values(groupedIcons).map((group, key) => {
           return <div>
             <div className="text-left">
-              <h3>{Object.keys(icons)[key]}</h3>
+              <h3>{Object.keys(groupedIcons)[key]}</h3>
             </div>
             <hr className="pb-5" />
             <GroupIcons key={key} icons={Object.values(group)} />

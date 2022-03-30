@@ -5,5 +5,6 @@ module.exports = {
 	outDir: "./src/icons",
 	svgo: true,
 	index: false,
+	jsxRuntime: 'automatic',
 	ref: false
 }

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { SVGProps } from "react";
 
 const SvgNigerFlag = (props: SVGProps<SVGSVGElement>) => (
