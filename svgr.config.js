@@ -5,5 +5,8 @@ module.exports = {
 	outDir: "./src/icons",
 	svgo: true,
 	index: false,
+	replaceAttrValues : {
+		"#fff": "currentColor",
+	},
 	ref: false
 }

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "jsx": "react-jsx",
+    "outDir": "./dist"
+  },
+  "include": [
+    "./src/icons.tsx",
+    "./src/icons/**/*{.ts,.tsx}"
+  ]
+}

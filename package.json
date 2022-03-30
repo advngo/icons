@@ -1,7 +1,10 @@
 {
   "name": "@advngo/icons",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "main": "dist/icons.js",
+  "module": "dist/icons.js",
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
@@ -13,17 +16,18 @@
     "antd": "^4.18.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
+    "react-scripts": "4.0.2",
     "react-syntax-highlighter": "^15.4.5",
     "react-toastify": "^8.2.0",
     "typescript": "^4.5.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "PORT=5001 react-scripts start",
+    "build": "yarn generate && tsc -p publish.tsconfig.json",
     "deploy": "react-scripts build && firebase deploy",
     "test": "react-scripts test",
+    "publish": "npm run generate && npm run build && npm publish",
     "generate": "rimraf ./src/icons/ && svgr ./svgs/",
     "eject": "react-scripts eject"
   },
@@ -51,7 +55,11 @@
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.6",
     "rimraf": "^3.0.2",
-    "tailwindcss": "^3.0.22",
+    "tailwindcss": "^3.0.23",
     "ts-node": "^10.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/advngo/icons.git"
   }
 }

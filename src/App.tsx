@@ -1,10 +1,14 @@
 import React from 'react';
+import * as Solid from './icons/icons/solid';
+import * as Outline from './icons/icons/outline';
+import * as Logos from './icons/logos';
+import * as Emojis from './icons/emojis';
+import * as Flags from './icons/icons/solid/flags';
 import { toast, ToastContainer } from 'react-toastify';
-import './App.css';
-import * as icons from './icons';
-import 'react-toastify/dist/ReactToastify.css';
-import logo from './favicon.png'
 import Instructions from './components/Instructions';
+import logo from './favicon.png'
+import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
 
 const notify = (text: string, Icon: any) => toast(
   <span><Icon /> {text}</span>,
@@ -19,11 +23,11 @@ const notify = (text: string, Icon: any) => toast(
   }
 );
 
-const GroupIcons: React.FC<{ icons: any[] }> = ({ icons }) => {
+const GroupIcons: React.FC<{ icons: any[], size?: number }> = ({ icons, size = 36 }) => {
 
   return <div className="grid grid-cols-6 md:grid-cols-6 gap-4 w-full items-center justify-between">
     {icons.map((Icon, key) => {
-      const name = Icon.name.replace('Svg', '')
+      const name = String(Icon.name).indexOf('Svg') === 0 ? Icon.name.replace('Svg', '') : Icon.name;
       const ref = React.createRef<any>()
       return <div
         key={key}
@@ -31,11 +35,11 @@ const GroupIcons: React.FC<{ icons: any[] }> = ({ icons }) => {
         onMouseEnter={() => ref.current.style.visibility = 'visible'}
         onMouseLeave={() => ref.current.style.visibility = 'hidden'}
         onClick={(e) => {
-          navigator.clipboard.writeText(Icon.name);
+          navigator.clipboard.writeText(`<${Icon.name} />`);
           notify('Copied!', Icon);
         }}
       >
-        <Icon className="p-1" key={key} />
+        <Icon className="p-1" width={size} height={size} key={key} />
         <code style={{ visibility: 'hidden' }} ref={ref}>
           <small >{name}</small>
         </code>
@@ -45,6 +49,13 @@ const GroupIcons: React.FC<{ icons: any[] }> = ({ icons }) => {
 }
 
 function App() {
+  const icons = {
+    Solid,
+    Outline,
+    Logos,
+    Emojis,
+    Flags
+  }
   return (
     <div className="App m-auto md:w-8/12 p-10">
       <ToastContainer />
@@ -57,12 +68,13 @@ function App() {
       </div>
       <div className="flex flex-col h-full py-10">
         {Object.values(icons).map((group, key) => {
-          return <div>
+          const title = Object.keys(icons)[key]
+          return <div key={key}>
             <div className="text-left">
-              <h3>{Object.keys(icons)[key]}</h3>
+              <h3>{title}</h3>
             </div>
             <hr className="pb-5" />
-            <GroupIcons key={key} icons={Object.values(group)} />
+            <GroupIcons size={title === 'Logos' ? 128 : 36} key={key} icons={Object.values(group)} />
           </div>
         })}
       </div>
