@@ -23,7 +23,7 @@ const notify = (text: string, Icon: any) => toast(
   }
 );
 
-const GroupIcons: React.FC<{ icons: any[] }> = ({ icons }) => {
+const GroupIcons: React.FC<{ icons: any[], size?: number }> = ({ icons, size = 36 }) => {
 
   return <div className="grid grid-cols-6 md:grid-cols-6 gap-4 w-full items-center justify-between">
     {icons.map((Icon, key) => {
@@ -39,7 +39,7 @@ const GroupIcons: React.FC<{ icons: any[] }> = ({ icons }) => {
           notify('Copied!', Icon);
         }}
       >
-        <Icon className="p-1" key={key} />
+        <Icon className="p-1" width={size} height={size} key={key} />
         <code style={{ visibility: 'hidden' }} ref={ref}>
           <small >{name}</small>
         </code>
@@ -68,12 +68,13 @@ function App() {
       </div>
       <div className="flex flex-col h-full py-10">
         {Object.values(icons).map((group, key) => {
+          const title = Object.keys(icons)[key]
           return <div key={key}>
             <div className="text-left">
-              <h3>{Object.keys(icons)[key]}</h3>
+              <h3>{title}</h3>
             </div>
             <hr className="pb-5" />
-            <GroupIcons key={key} icons={Object.values(group)} />
+            <GroupIcons size={title === 'Logos' ? 128 : 36} key={key} icons={Object.values(group)} />
           </div>
         })}
       </div>
